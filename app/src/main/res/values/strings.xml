@@ -48,4 +48,17 @@
     <string name="skip">Skip</string>
     <string name="done">All Done!</string>
     <string name="step_of">Step %1$d of %2$d</string>
+
+    <!-- Full-screen reminder activity -->
+    <string name="full_screen_title">Time to Drink Water!</string>
+    <string name="full_screen_body">Your body needs hydration to stay focused and energized.\n\nTake a moment to drink a glass of water.</string>
+    <string name="closing_in">Closing in %1$ds</string>
+    <string name="dismiss">Got It, I\'ll Drink Now</string>
+
+    <!-- Permissions -->
+    <string name="enable_full_screen_alerts">Enable Full-Screen Alerts</string>
+
+    <!-- Onboarding FSI step -->
+    <string name="onboarding_fsi_title">Allow Full-Screen Alerts</string>
+    <string name="onboarding_fsi_body">Android 14+ requires explicit permission for apps to show full-screen alerts.\n\nThis allows reminders to appear over the lock screen when your phone is sleeping — so you never miss a hydration reminder.</string>
 </resources>

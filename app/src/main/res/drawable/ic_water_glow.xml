@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layered glowing water drop for full-screen reminder -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Outermost glow halo -->
+    <path
+        android:fillColor="#0800B4FF"
+        android:pathData="M60,4C60,4 6,62 6,83C6,110 30,126 60,126C90,126 114,110 114,83C114,62 60,4 60,4Z" />
+
+    <!-- Mid glow ring -->
+    <path
+        android:fillColor="#1600B4FF"
+        android:pathData="M60,16C60,16 18,66 18,83C18,106 37,119 60,119C83,119 102,106 102,83C102,66 60,16 60,16Z" />
+
+    <!-- Inner glow -->
+    <path
+        android:fillColor="#2800B4FF"
+        android:pathData="M60,26C60,26 28,69 28,83C28,102 42,113 60,113C78,113 92,102 92,83C92,69 60,26 60,26Z" />
+
+    <!-- Drop body — deep cyan-blue -->
+    <path
+        android:fillColor="#0099E6"
+        android:pathData="M60,36C60,36 36,73 36,84C36,99 46.7,108 60,108C73.3,108 84,99 84,84C84,73 60,36 60,36Z" />
+
+    <!-- Drop body — lighter inner face -->
+    <path
+        android:fillColor="#1AB3FF"
+        android:pathData="M60,46C60,46 42,76 42,84C42,97 50,105 60,105C70,105 78,97 78,84C78,76 60,46 60,46Z" />
+
+    <!-- Left specular streak -->
+    <path
+        android:fillColor="#60FFFFFF"
+        android:pathData="M44,64C44,64 38,78 38,84C38,90 40,94 43.5,96.5C46,98 47,96.5 47,93.5C47,89.5 44.5,85 44,80C43,73 46,64 50,54Z" />
+
+    <!-- Upper shine dot -->
+    <path
+        android:fillColor="#99FFFFFF"
+        android:pathData="M51,37C48.5,40 48.5,45 51.5,47C54.5,49 58.5,47 58.5,43.5C58.5,40 55,34.5 51,37Z" />
+</vector>

@@ -2,6 +2,7 @@ package com.nbjiragale.drinkwater.util
 
 import android.Manifest
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.pm.PackageManager
@@ -55,6 +56,13 @@ class BackgroundRestrictionDetector(private val context: Context) {
             return getAppStandbyBucket() == UsageStatsManager.STANDBY_BUCKET_RESTRICTED
         }
         return false
+    }
+
+    fun canUseFullScreenIntent(): Boolean {
+        return if (Build.VERSION.SDK_INT >= 34) {
+            val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nm.canUseFullScreenIntent()
+        } else true
     }
 
     fun isAppRestricted(): Boolean {

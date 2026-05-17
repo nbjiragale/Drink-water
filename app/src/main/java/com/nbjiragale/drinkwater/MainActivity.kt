@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         setupReminderToggle()
         setupFixPermissionsButton()
         setupBatteryOptButton()
+        setupFsiButton()
     }
 
     override fun onResume() {
@@ -140,6 +141,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupFsiButton() {
+        binding.btnFixFsi.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 34) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENTS).apply {
+                    data = Uri.fromParts("package", packageName, null)
+                }
+                settingsLauncher.launch(intent)
+            }
+        }
+    }
+
     private fun updateUI() {
         val isEnabled = prefs.isReminderEnabled
 
@@ -156,6 +168,7 @@ class MainActivity : AppCompatActivity() {
         val alarmOk = detector.isExactAlarmPermissionGranted()
         val notifOk = detector.isNotificationPermissionGranted()
         val battOk = detector.isIgnoringBatteryOptimizations()
+        val fsiOk = detector.canUseFullScreenIntent()
         val isRestricted = detector.isInRestrictedBucket()
 
         binding.tvPermAlarm.text =
@@ -164,6 +177,13 @@ class MainActivity : AppCompatActivity() {
             if (notifOk) "✓ Notifications: Granted" else "✗ Notifications: Not granted"
         binding.tvPermBattery.text =
             if (battOk) "✓ Battery optimization: Excluded" else "✗ Battery optimization: Not excluded"
+
+        if (!fsiOk) {
+            binding.tvPermFsi.visibility = View.VISIBLE
+            binding.tvPermFsi.text = "✗ Full-screen alerts: Not allowed"
+        } else {
+            binding.tvPermFsi.visibility = View.GONE
+        }
 
         if (isRestricted) {
             binding.tvPermRestricted.visibility = View.VISIBLE
@@ -176,8 +196,9 @@ class MainActivity : AppCompatActivity() {
         val needsPermFix = !alarmOk || !notifOk
         binding.btnFixPermissions.visibility = if (needsPermFix) View.VISIBLE else View.GONE
         binding.btnBatteryOpt.visibility = if (!battOk) View.VISIBLE else View.GONE
+        binding.btnFixFsi.visibility = if (!fsiOk) View.VISIBLE else View.GONE
         binding.cardPermissions.visibility =
-            if (needsPermFix || !battOk || isRestricted) View.VISIBLE else View.GONE
+            if (needsPermFix || !battOk || !fsiOk || isRestricted) View.VISIBLE else View.GONE
 
         updateCountdownText()
     }
@@ -201,25 +222,25 @@ class MainActivity : AppCompatActivity() {
     private fun updateCountdownText() {
         if (!prefs.isReminderEnabled) {
             binding.tvCountdown.text = getString(R.string.reminders_disabled_short)
+            binding.tvCountdownLabel.visibility = View.INVISIBLE
             return
         }
         val nextTime = prefs.nextReminderTime
         if (nextTime <= 0L) {
             binding.tvCountdown.text = getString(R.string.scheduling)
+            binding.tvCountdownLabel.visibility = View.INVISIBLE
             return
         }
         val diff = nextTime - System.currentTimeMillis()
         if (diff <= 0L) {
             binding.tvCountdown.text = getString(R.string.due_now)
+            binding.tvCountdownLabel.visibility = View.INVISIBLE
             return
         }
         val hours = TimeUnit.MILLISECONDS.toHours(diff)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(diff) % 60
         val seconds = TimeUnit.MILLISECONDS.toSeconds(diff) % 60
-        binding.tvCountdown.text = if (hours > 0) {
-            getString(R.string.countdown_hms, hours, minutes, seconds)
-        } else {
-            getString(R.string.countdown_ms, minutes, seconds)
-        }
+        binding.tvCountdown.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        binding.tvCountdownLabel.visibility = View.VISIBLE
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Simulates a radial blue glow using nested concentric ovals.
+    Uses layer-list because gradientRadius="%" requires API 24+.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval"><solid android:color="#0300B4FF" /></shape>
+    </item>
+    <item android:top="14dp" android:bottom="14dp" android:left="14dp" android:right="14dp">
+        <shape android:shape="oval"><solid android:color="#0700B4FF" /></shape>
+    </item>
+    <item android:top="28dp" android:bottom="28dp" android:left="28dp" android:right="28dp">
+        <shape android:shape="oval"><solid android:color="#1100B4FF" /></shape>
+    </item>
+    <item android:top="42dp" android:bottom="42dp" android:left="42dp" android:right="42dp">
+        <shape android:shape="oval"><solid android:color="#1E00B4FF" /></shape>
+    </item>
+    <item android:top="56dp" android:bottom="56dp" android:left="56dp" android:right="56dp">
+        <shape android:shape="oval"><solid android:color="#3000B4FF" /></shape>
+    </item>
+    <item android:top="70dp" android:bottom="70dp" android:left="70dp" android:right="70dp">
+        <shape android:shape="oval"><solid android:color="#4800B4FF" /></shape>
+    </item>
+</layer-list>

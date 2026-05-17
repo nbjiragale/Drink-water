@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1976D2</color>
-    <color name="primary_dark">#1565C0</color>
-    <color name="accent">#00BCD4</color>
-    <color name="background">#F0F8FF</color>
-    <color name="surface">#FFFFFF</color>
+    <!-- Dark background -->
+    <color name="background">#090D1A</color>
+    <color name="card_surface">#111827</color>
+    <color name="card_stroke">#1B3A6E</color>
+
+    <!-- Neon blue primary / indigo accent -->
+    <color name="primary">#00B4FF</color>
+    <color name="primary_variant">#0085FF</color>
+    <color name="primary_dark">#005CB2</color>
+    <color name="accent">#4A1BFF</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="success">#4CAF50</color>
-    <color name="warning">#FF9800</color>
-    <color name="error">#F44336</color>
-    <color name="text_secondary">#757575</color>
+
+    <!-- Text hierarchy -->
+    <color name="text_on_bg">#E8F4FF</color>
+    <color name="text_on_card">#C9E2FF</color>
+    <color name="text_secondary">#6B8DB5</color>
+    <color name="text_dim">#2D527A</color>
+
+    <!-- Semantic -->
+    <color name="success">#00E676</color>
+    <color name="warning">#FFB300</color>
+    <color name="error">#FF4444</color>
 </resources>

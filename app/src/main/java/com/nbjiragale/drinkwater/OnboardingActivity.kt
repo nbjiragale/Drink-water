@@ -62,6 +62,7 @@ class OnboardingActivity : AppCompatActivity() {
         if (!detector.isNotificationPermissionGranted()) steps.add(OnboardingStep.NotificationPermission)
         if (!detector.isExactAlarmPermissionGranted()) steps.add(OnboardingStep.ExactAlarm)
         if (!detector.isIgnoringBatteryOptimizations()) steps.add(OnboardingStep.BatteryOptimization)
+        if (!detector.canUseFullScreenIntent()) steps.add(OnboardingStep.FullScreenIntent)
         val oem = detector.getDetectedOem()
         if (oem != BackgroundRestrictionDetector.OemType.GENERIC) {
             steps.add(OnboardingStep.OemAutoStart(oem))
@@ -130,6 +131,22 @@ class OnboardingActivity : AppCompatActivity() {
                 }
             }
 
+            is OnboardingStep.FullScreenIntent -> {
+                binding.tvOnboardingTitle.text = getString(R.string.onboarding_fsi_title)
+                binding.tvOnboardingBody.text = getString(R.string.onboarding_fsi_body)
+                binding.btnOnboardingAction.text = getString(R.string.open_settings)
+                binding.btnOnboardingAction.setOnClickListener {
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENTS).apply {
+                            data = Uri.fromParts("package", packageName, null)
+                        }
+                        settingsLauncher.launch(intent)
+                    } else {
+                        moveToNextStep()
+                    }
+                }
+            }
+
             is OnboardingStep.OemAutoStart -> {
                 binding.tvOnboardingTitle.text = getString(R.string.onboarding_step_3_title)
                 binding.tvOnboardingBody.text = buildOemBodyText(step.oemType)
@@ -178,6 +195,7 @@ class OnboardingActivity : AppCompatActivity() {
         object NotificationPermission : OnboardingStep()
         object ExactAlarm : OnboardingStep()
         object BatteryOptimization : OnboardingStep()
+        object FullScreenIntent : OnboardingStep()
         data class OemAutoStart(val oemType: BackgroundRestrictionDetector.OemType) : OnboardingStep()
     }
 }
