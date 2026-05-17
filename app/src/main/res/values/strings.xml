@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Drink Water</string>
+
+    <!-- Notification channel -->
+    <string name="notification_channel_name">Hydration Reminders</string>
+    <string name="notification_channel_description">Periodic reminders to drink water.</string>
+
+    <!-- Notification content -->
+    <string name="notification_title">Time to Drink Water!</string>
+    <string name="notification_text">Stay hydrated — take a moment to drink some water.</string>
+
+    <!-- Main screen -->
+    <string name="reminders_on">Reminders are ON</string>
+    <string name="reminders_off">Reminders are OFF</string>
+    <string name="reminders_disabled_short">Disabled</string>
+    <string name="next_reminder">Next reminder in</string>
+    <string name="scheduling">Scheduling…</string>
+    <string name="due_now">Due now!</string>
+    <string name="countdown_hms">%1$dh %2$dm %3$ds</string>
+    <string name="countdown_ms">%1$dm %2$ds</string>
+    <string name="remind_every">Remind me every</string>
+    <string name="interval_30min">30 min</string>
+    <string name="interval_1h">1 hour</string>
+    <string name="interval_2h">2 hours</string>
+    <string name="interval_3h">3 hours</string>
+
+    <!-- Permissions card -->
+    <string name="permissions_needed">Settings need attention</string>
+    <string name="fix_permissions">Fix Permissions</string>
+    <string name="battery_opt_button">Exclude from Battery Optimization</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_notifications_title">Enable Notifications</string>
+    <string name="onboarding_notifications_body">This app needs permission to show water reminders.\n\nPlease allow notifications so you never miss a hydration reminder.</string>
+
+    <string name="onboarding_step_1_title">Enable Exact Alarms</string>
+    <string name="onboarding_step_1_body">To receive reminders at the right time, this app needs permission to schedule exact alarms.\n\nThis ensures reminders fire precisely even when your phone is in deep sleep.</string>
+
+    <string name="onboarding_step_2_title">Disable Battery Optimization</string>
+    <string name="onboarding_step_2_body">Your device may aggressively stop background apps to save battery.\n\nTo ensure reminders are never missed, please exclude this app from battery optimization.</string>
+
+    <string name="onboarding_step_3_title">Allow Background Auto-Start</string>
+    <string name="onboarding_step_3_body">%1$s applies extra background restrictions that can silently block reminders.\n\nPlease add this app to the \'Auto-Start\' or \'Never Sleeping\' list in your system settings.</string>
+
+    <string name="grant_permission">Grant Permission</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="skip">Skip</string>
+    <string name="done">All Done!</string>
+    <string name="step_of">Step %1$d of %2$d</string>
+</resources>
