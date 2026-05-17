@@ -29,6 +29,7 @@ object NotificationService {
                 description = context.getString(R.string.notification_channel_description)
                 enableVibration(true)
                 setShowBadge(true)
+                lockscreenVisibility = android.app.Notification.VISIBILITY_PUBLIC
             }
             val manager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -62,6 +63,7 @@ object NotificationService {
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 
         if (canUseFullScreenIntent(context)) {
             builder.setFullScreenIntent(fsiPendingIntent, true)
