@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         setupIntervalChips()
         setupReminderToggle()
+        setupProgressCard()
         setupFixPermissionsButton()
         setupBatteryOptButton()
         setupFsiButton()
@@ -141,6 +142,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupProgressCard() {
+        binding.btnGoalMinus.setOnClickListener {
+            val current = prefs.dailyGoal
+            if (current > 1) {
+                prefs.dailyGoal = current - 1
+                updateProgressCard()
+            }
+        }
+        binding.btnGoalPlus.setOnClickListener {
+            val current = prefs.dailyGoal
+            if (current < 16) {
+                prefs.dailyGoal = current + 1
+                updateProgressCard()
+            }
+        }
+        binding.btnLogDrink.setOnClickListener {
+            prefs.incrementDrinkCount()
+            if (prefs.isReminderEnabled) {
+                scheduler.scheduleNextAlarm()
+            }
+            updateProgressCard()
+            updateCountdownText()
+        }
+    }
+
+    private fun updateProgressCard() {
+        val count = prefs.drinkCountToday
+        val goal = prefs.dailyGoal
+        binding.tvDrinkCount.text = count.toString()
+        binding.tvDailyGoal.text = goal.toString()
+        val pct = ((count.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.progressDrink.progress = pct
+    }
+
     private fun setupFsiButton() {
         binding.btnFixFsi.setOnClickListener {
             if (Build.VERSION.SDK_INT >= 34) {
@@ -200,6 +235,7 @@ class MainActivity : AppCompatActivity() {
         binding.cardPermissions.visibility =
             if (needsPermFix || !battOk || !fsiOk || isRestricted) View.VISIBLE else View.GONE
 
+        updateProgressCard()
         updateCountdownText()
     }
 

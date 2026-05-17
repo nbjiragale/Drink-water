@@ -10,7 +10,9 @@ import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.nbjiragale.drinkwater.alarm.NotificationService
+import com.nbjiragale.drinkwater.alarm.WaterReminderAlarmScheduler
 import com.nbjiragale.drinkwater.databinding.ActivityFullScreenReminderBinding
+import com.nbjiragale.drinkwater.util.PreferencesManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -68,7 +70,7 @@ class DrinkReminderFullScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvAutoCount.text = getString(R.string.closing_in, remainingSeconds)
-        binding.btnDismiss.setOnClickListener { dismissReminder() }
+        binding.btnDismiss.setOnClickListener { logDrinkAndDismiss() }
 
         updateClock()
         handler.postDelayed(clockRunnable, 1_000)
@@ -90,6 +92,16 @@ class DrinkReminderFullScreenActivity : AppCompatActivity() {
         val now = Date()
         binding.tvCurrentTime.text = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(now)
         binding.tvCurrentDate.text = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(now)
+    }
+
+    private fun logDrinkAndDismiss() {
+        val prefs = PreferencesManager(this)
+        prefs.incrementDrinkCount()
+        // Reschedule with the updated count so the smart interval reflects the new drink
+        if (prefs.isReminderEnabled) {
+            WaterReminderAlarmScheduler(this).scheduleNextAlarm()
+        }
+        dismissReminder()
     }
 
     private fun dismissReminder() {

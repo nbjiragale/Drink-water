@@ -49,6 +49,9 @@
     <string name="done">All Done!</string>
     <string name="step_of">Step %1$d of %2$d</string>
 
+    <!-- Today's progress card -->
+    <string name="log_drink">+ I Drank Water</string>
+
     <!-- Full-screen reminder activity -->
     <string name="full_screen_title">Time to Drink Water!</string>
     <string name="full_screen_body">Your body needs hydration to stay focused and energized.\n\nTake a moment to drink a glass of water.</string>
