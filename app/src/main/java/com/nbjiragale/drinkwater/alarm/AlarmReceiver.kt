@@ -24,6 +24,14 @@ class AlarmReceiver : BroadcastReceiver() {
             return
         }
 
+        // Safety net: an alarm scheduled before the user paused (or while a pause was about to
+        // start) may still fire mid-pause. Drop the notification but reschedule past the pause.
+        if (prefs.isPausedNow()) {
+            Log.d(TAG, "Reminders are paused; skipping notification and rescheduling.")
+            WaterReminderAlarmScheduler(context).scheduleNextAlarm()
+            return
+        }
+
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG)
         // Bounded acquire prevents a leaked lock if the finally block somehow fails

@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nbjiragale.drinkwater.alarm.NotificationService
 import com.nbjiragale.drinkwater.alarm.WaterReminderAlarmScheduler
 import com.nbjiragale.drinkwater.databinding.ActivityMainBinding
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         setupReminderToggle()
         setupActiveHours()
         setupReminderSoundCard()
+        setupPauseControls()
         setupProgressCard()
         setupFixPermissionsButton()
         setupBatteryOptButton()
@@ -274,6 +276,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupPauseControls() {
+        binding.btnPauseResume.setOnClickListener {
+            if (prefs.isPausedNow()) resumeReminders() else launchPausePicker()
+        }
+    }
+
+    private fun launchPausePicker() {
+        val options = arrayOf(
+            getString(R.string.pause_15min),
+            getString(R.string.pause_1hour),
+            getString(R.string.pause_until_resumed)
+        )
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.pause_picker_title)
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> pauseFor(TimeUnit.MINUTES.toMillis(15))
+                    1 -> pauseFor(TimeUnit.HOURS.toMillis(1))
+                    2 -> pauseFor(PreferencesManager.PAUSED_INDEFINITELY)
+                }
+            }
+            .show()
+    }
+
+    private fun pauseFor(durationMs: Long) {
+        prefs.pausedUntilMs = if (durationMs == PreferencesManager.PAUSED_INDEFINITELY) {
+            PreferencesManager.PAUSED_INDEFINITELY
+        } else {
+            System.currentTimeMillis() + durationMs
+        }
+        if (prefs.isReminderEnabled) {
+            scheduler.cancelScheduledAlarm()
+            scheduler.scheduleNextAlarm()
+        }
+        updateUI()
+    }
+
+    private fun resumeReminders() {
+        prefs.pausedUntilMs = 0L
+        if (prefs.isReminderEnabled) {
+            scheduler.cancelScheduledAlarm()
+            scheduler.scheduleNextAlarm()
+        }
+        updateUI()
+    }
+
     private fun setupProgressCard() {
         binding.btnGoalMinus.setOnClickListener {
             val current = prefs.dailyGoal
@@ -388,11 +436,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateCountdownText() {
+        refreshPauseButton()
         if (!prefs.isReminderEnabled) {
             binding.tvCountdown.text = getString(R.string.reminders_disabled_short)
             binding.tvCountdownLabel.visibility = View.INVISIBLE
+            binding.tvPausedSubtitle.visibility = View.GONE
             return
         }
+        val now = System.currentTimeMillis()
+        val pausedUntil = prefs.pausedUntilMs
+        if (pausedUntil > now) {
+            binding.tvCountdown.text = getString(R.string.paused)
+            binding.tvCountdownLabel.visibility = View.INVISIBLE
+            binding.tvPausedSubtitle.visibility = View.VISIBLE
+            binding.tvPausedSubtitle.text =
+                if (pausedUntil == PreferencesManager.PAUSED_INDEFINITELY) {
+                    getString(R.string.paused_indefinitely)
+                } else {
+                    val resumeTime = SimpleDateFormat("h:mm a", Locale.getDefault())
+                        .format(Date(pausedUntil))
+                    getString(R.string.paused_until_format, resumeTime)
+                }
+            return
+        }
+        binding.tvPausedSubtitle.visibility = View.GONE
         val nextTime = prefs.nextReminderTime
         if (nextTime <= 0L) {
             binding.tvCountdown.text = getString(R.string.scheduling)
@@ -410,5 +477,13 @@ class MainActivity : AppCompatActivity() {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(diff) % 60
         binding.tvCountdown.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
         binding.tvCountdownLabel.visibility = View.VISIBLE
+    }
+
+    private fun refreshPauseButton() {
+        binding.btnPauseResume.visibility =
+            if (prefs.isReminderEnabled) View.VISIBLE else View.GONE
+        binding.btnPauseResume.setText(
+            if (prefs.isPausedNow()) R.string.resume_reminders else R.string.pause_reminders
+        )
     }
 }

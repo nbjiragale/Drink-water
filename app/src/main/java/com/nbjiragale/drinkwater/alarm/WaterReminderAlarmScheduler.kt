@@ -21,9 +21,20 @@ class WaterReminderAlarmScheduler(private val context: Context) {
     }
 
     fun scheduleNextAlarm() {
+        val now = System.currentTimeMillis()
+        val pausedUntil = prefs.pausedUntilMs
+
+        // Indefinite pause: cancel any pending alarm and leave the queue empty until the user resumes.
+        if (pausedUntil == PreferencesManager.PAUSED_INDEFINITELY) {
+            cancelScheduledAlarm()
+            return
+        }
+
         val intervalMs = SmartIntervalCalculator(prefs).nextIntervalMs()
-        val proposed = System.currentTimeMillis() + intervalMs
-        val clamped = ActiveWindow.clamp(proposed, prefs.activeStartMinute, prefs.activeEndMinute)
+        val proposed = now + intervalMs
+        // Push the trigger past an active pause window so the alarm never fires inside it.
+        val withPause = if (pausedUntil > now) maxOf(proposed, pausedUntil) else proposed
+        val clamped = ActiveWindow.clamp(withPause, prefs.activeStartMinute, prefs.activeEndMinute)
         scheduleAlarmAt(clamped)
     }
 

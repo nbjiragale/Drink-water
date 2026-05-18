@@ -25,6 +25,17 @@
     <string name="interval_2h">2 hours</string>
     <string name="interval_3h">3 hours</string>
 
+    <!-- Pause reminders -->
+    <string name="pause_reminders">Pause reminders</string>
+    <string name="resume_reminders">Resume</string>
+    <string name="pause_picker_title">Pause reminders for…</string>
+    <string name="pause_15min">15 minutes</string>
+    <string name="pause_1hour">1 hour</string>
+    <string name="pause_until_resumed">Until I resume</string>
+    <string name="paused">PAUSED</string>
+    <string name="paused_until_format">Resumes at %1$s</string>
+    <string name="paused_indefinitely">Tap Resume to continue</string>
+
     <!-- Active hours card -->
     <string name="active_hours">ACTIVE HOURS</string>
     <string name="active_hours_from">FROM</string>
