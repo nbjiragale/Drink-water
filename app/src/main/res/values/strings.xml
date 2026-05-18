@@ -25,6 +25,10 @@
     <string name="interval_2h">2 hours</string>
     <string name="interval_3h">3 hours</string>
 
+    <!-- Notification action buttons -->
+    <string name="notification_action_drank">I drank</string>
+    <string name="notification_action_snooze">Snooze 10 min</string>
+
     <!-- Active hours card -->
     <string name="active_hours">ACTIVE HOURS</string>
     <string name="active_hours_from">FROM</string>
