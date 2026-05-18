@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\layout_activity_onboarding.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_onboarding.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-xhdpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-xhdpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-mdpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-mdpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "com.nbjiragale.drinkwater.app-debug-4:/drawable_bg_time_pill.xml.flat",
+        "source": "com.nbjiragale.drinkwater.app-main-6:/drawable/bg_time_pill.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\layout_activity_full_screen_reminder.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_full_screen_reminder.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-xxhdpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-xxhdpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-hdpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-hdpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_bg_glow_radial.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\bg_glow_radial.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-anydpi-v24_ic_water_glow.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-anydpi-v24\\ic_water_glow.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_ic_water_glow.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\ic_water_glow.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-xxxhdpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-xxxhdpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "com.nbjiragale.drinkwater.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "com.nbjiragale.drinkwater.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable-ldpi_ic_water_glow.png.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-pngs-0:\\drawable-ldpi\\ic_water_glow.png"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_bg_progress_drink.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\bg_progress_drink.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_ic_water_drop.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\ic_water_drop.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\drawable_bg_btn_neon_dismiss.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\drawable\\bg_btn_neon_dismiss.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-debug-4:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    }
+]

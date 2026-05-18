@@ -20,12 +20,16 @@ class PreferencesManager(context: Context) {
         private const val KEY_DRINK_COUNT = "drink_count_today"
         private const val KEY_DRINK_DATE = "drink_date"
         private const val KEY_DAILY_GOAL = "daily_goal"
+        private const val KEY_ACTIVE_START_MIN = "active_start_minute"
+        private const val KEY_ACTIVE_END_MIN = "active_end_minute"
 
         val INTERVAL_30_MIN = 30 * 60 * 1000L
         val INTERVAL_1_HOUR = 60 * 60 * 1000L
         val INTERVAL_2_HOURS = 2 * 60 * 60 * 1000L
         val INTERVAL_3_HOURS = 3 * 60 * 60 * 1000L
         const val DEFAULT_DAILY_GOAL = 8
+        const val DEFAULT_ACTIVE_START_MIN = 7 * 60   // 07:00
+        const val DEFAULT_ACTIVE_END_MIN = 22 * 60    // 22:00
     }
 
     var isReminderEnabled: Boolean
@@ -47,6 +51,14 @@ class PreferencesManager(context: Context) {
     var dailyGoal: Int
         get() = prefs.getInt(KEY_DAILY_GOAL, DEFAULT_DAILY_GOAL)
         set(value) = prefs.edit().putInt(KEY_DAILY_GOAL, value).apply()
+
+    var activeStartMinute: Int
+        get() = prefs.getInt(KEY_ACTIVE_START_MIN, DEFAULT_ACTIVE_START_MIN)
+        set(value) = prefs.edit().putInt(KEY_ACTIVE_START_MIN, value).apply()
+
+    var activeEndMinute: Int
+        get() = prefs.getInt(KEY_ACTIVE_END_MIN, DEFAULT_ACTIVE_END_MIN)
+        set(value) = prefs.edit().putInt(KEY_ACTIVE_END_MIN, value).apply()
 
     var drinkCountToday: Int
         get() {

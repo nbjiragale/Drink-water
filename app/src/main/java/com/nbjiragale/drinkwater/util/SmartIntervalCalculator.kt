@@ -15,9 +15,9 @@ class SmartIntervalCalculator(private val prefs: PreferencesManager) {
 
         val now = Calendar.getInstance()
         val minuteOfDay = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
-        val activeStart = 7 * 60
-        val activeEnd = 23 * 60
-        val totalMinutes = (activeEnd - activeStart).toFloat()
+        val activeStart = prefs.activeStartMinute
+        val activeEnd = prefs.activeEndMinute
+        val totalMinutes = (activeEnd - activeStart).coerceAtLeast(1).toFloat()
         val elapsed = (minuteOfDay - activeStart).coerceIn(0, activeEnd - activeStart)
         val expected = ((elapsed / totalMinutes) * goal).toInt()
 

@@ -137,7 +137,7 @@ class OnboardingActivity : AppCompatActivity() {
                 binding.btnOnboardingAction.text = getString(R.string.open_settings)
                 binding.btnOnboardingAction.setOnClickListener {
                     if (Build.VERSION.SDK_INT >= 34) {
-                        val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENTS).apply {
+                        val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
                             data = Uri.fromParts("package", packageName, null)
                         }
                         settingsLauncher.launch(intent)

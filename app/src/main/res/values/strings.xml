@@ -25,6 +25,12 @@
     <string name="interval_2h">2 hours</string>
     <string name="interval_3h">3 hours</string>
 
+    <!-- Active hours card -->
+    <string name="active_hours">ACTIVE HOURS</string>
+    <string name="active_hours_from">FROM</string>
+    <string name="active_hours_to">TO</string>
+    <string name="active_hours_invalid">End time must be after start time</string>
+
     <!-- Permissions card -->
     <string name="permissions_needed">Settings need attention</string>
     <string name="fix_permissions">Fix Permissions</string>

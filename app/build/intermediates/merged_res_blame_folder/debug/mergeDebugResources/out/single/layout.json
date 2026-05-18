@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-mergeDebugResources-3:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.nbjiragale.drinkwater.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.nbjiragale.drinkwater.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-mergeDebugResources-3:\\layout\\activity_full_screen_reminder.xml",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_full_screen_reminder.xml"
+    },
+    {
+        "merged": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-mergeDebugResources-3:\\layout\\activity_onboarding.xml",
+        "source": "C:\\Users\\jirag\\.gradle\\daemon\\8.7\\com.nbjiragale.drinkwater.app-main-6:\\layout\\activity_onboarding.xml"
+    }
+]

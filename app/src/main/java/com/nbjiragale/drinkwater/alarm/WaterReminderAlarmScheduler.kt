@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.nbjiragale.drinkwater.util.ActiveWindow
 import com.nbjiragale.drinkwater.util.PreferencesManager
 import com.nbjiragale.drinkwater.util.SmartIntervalCalculator
 
@@ -21,7 +22,9 @@ class WaterReminderAlarmScheduler(private val context: Context) {
 
     fun scheduleNextAlarm() {
         val intervalMs = SmartIntervalCalculator(prefs).nextIntervalMs()
-        scheduleAlarmAt(System.currentTimeMillis() + intervalMs)
+        val proposed = System.currentTimeMillis() + intervalMs
+        val clamped = ActiveWindow.clamp(proposed, prefs.activeStartMinute, prefs.activeEndMinute)
+        scheduleAlarmAt(clamped)
     }
 
     fun scheduleAlarmAt(triggerTimeMs: Long) {

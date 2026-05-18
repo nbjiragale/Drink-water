@@ -1,6 +1,7 @@
 package com.nbjiragale.drinkwater
 
 import android.Manifest
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -9,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.nbjiragale.drinkwater.alarm.NotificationService
@@ -16,6 +18,10 @@ import com.nbjiragale.drinkwater.alarm.WaterReminderAlarmScheduler
 import com.nbjiragale.drinkwater.databinding.ActivityMainBinding
 import com.nbjiragale.drinkwater.util.BackgroundRestrictionDetector
 import com.nbjiragale.drinkwater.util.PreferencesManager
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -55,10 +61,12 @@ class MainActivity : AppCompatActivity() {
 
         setupIntervalChips()
         setupReminderToggle()
+        setupActiveHours()
         setupProgressCard()
         setupFixPermissionsButton()
         setupBatteryOptButton()
         setupFsiButton()
+        installTrialTestNotificationTrigger(this, binding) // TRIAL: remove this line + TrialTestNotification.kt to disable
     }
 
     override fun onResume() {
@@ -109,6 +117,62 @@ class MainActivity : AppCompatActivity() {
             }
             updateUI()
         }
+    }
+
+    private fun setupActiveHours() {
+        refreshActiveHoursLabels()
+        binding.btnActiveStart.setOnClickListener {
+            showTimePicker(prefs.activeStartMinute) { picked ->
+                if (picked >= prefs.activeEndMinute) {
+                    Toast.makeText(this, R.string.active_hours_invalid, Toast.LENGTH_SHORT).show()
+                    return@showTimePicker
+                }
+                prefs.activeStartMinute = picked
+                onActiveHoursChanged()
+            }
+        }
+        binding.btnActiveEnd.setOnClickListener {
+            showTimePicker(prefs.activeEndMinute) { picked ->
+                if (picked <= prefs.activeStartMinute) {
+                    Toast.makeText(this, R.string.active_hours_invalid, Toast.LENGTH_SHORT).show()
+                    return@showTimePicker
+                }
+                prefs.activeEndMinute = picked
+                onActiveHoursChanged()
+            }
+        }
+    }
+
+    private fun onActiveHoursChanged() {
+        refreshActiveHoursLabels()
+        if (prefs.isReminderEnabled) {
+            scheduler.cancelScheduledAlarm()
+            scheduler.scheduleNextAlarm()
+        }
+        updateCountdownText()
+    }
+
+    private fun refreshActiveHoursLabels() {
+        binding.tvActiveStart.text = formatMinuteOfDay(prefs.activeStartMinute)
+        binding.tvActiveEnd.text = formatMinuteOfDay(prefs.activeEndMinute)
+    }
+
+    private fun formatMinuteOfDay(minute: Int): String {
+        val cal = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, minute / 60)
+            set(Calendar.MINUTE, minute % 60)
+        }
+        return SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(cal.timeInMillis))
+    }
+
+    private fun showTimePicker(initialMinute: Int, onPicked: (Int) -> Unit) {
+        TimePickerDialog(
+            this,
+            { _, hour, minute -> onPicked(hour * 60 + minute) },
+            initialMinute / 60,
+            initialMinute % 60,
+            false
+        ).show()
     }
 
     private fun setupFixPermissionsButton() {
@@ -179,7 +243,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupFsiButton() {
         binding.btnFixFsi.setOnClickListener {
             if (Build.VERSION.SDK_INT >= 34) {
-                val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENTS).apply {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
                     data = Uri.fromParts("package", packageName, null)
                 }
                 settingsLauncher.launch(intent)
