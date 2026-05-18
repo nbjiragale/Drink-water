@@ -22,6 +22,7 @@ class PreferencesManager(context: Context) {
         private const val KEY_DAILY_GOAL = "daily_goal"
         private const val KEY_ACTIVE_START_MIN = "active_start_minute"
         private const val KEY_ACTIVE_END_MIN = "active_end_minute"
+        private const val KEY_PAUSED_UNTIL_MS = "paused_until_ms"
 
         val INTERVAL_30_MIN = 30 * 60 * 1000L
         val INTERVAL_1_HOUR = 60 * 60 * 1000L
@@ -30,6 +31,9 @@ class PreferencesManager(context: Context) {
         const val DEFAULT_DAILY_GOAL = 8
         const val DEFAULT_ACTIVE_START_MIN = 7 * 60   // 07:00
         const val DEFAULT_ACTIVE_END_MIN = 22 * 60    // 22:00
+
+        /** Sentinel for "paused until the user manually resumes" — no scheduled wake-up time. */
+        const val PAUSED_INDEFINITELY = Long.MAX_VALUE
     }
 
     var isReminderEnabled: Boolean
@@ -59,6 +63,19 @@ class PreferencesManager(context: Context) {
     var activeEndMinute: Int
         get() = prefs.getInt(KEY_ACTIVE_END_MIN, DEFAULT_ACTIVE_END_MIN)
         set(value) = prefs.edit().putInt(KEY_ACTIVE_END_MIN, value).apply()
+
+    /**
+     * Wall-clock millis until which reminder notifications are suppressed.
+     *  - `0L` (default)           → not paused.
+     *  - any future timestamp     → reminders are paused until this moment.
+     *  - [PAUSED_INDEFINITELY]    → paused until the user manually resumes (no alarm scheduled).
+     */
+    var pausedUntilMs: Long
+        get() = prefs.getLong(KEY_PAUSED_UNTIL_MS, 0L)
+        set(value) = prefs.edit().putLong(KEY_PAUSED_UNTIL_MS, value).apply()
+
+    /** True when [pausedUntilMs] is still in the future (or set to [PAUSED_INDEFINITELY]). */
+    fun isPausedNow(nowMs: Long = System.currentTimeMillis()): Boolean = pausedUntilMs > nowMs
 
     var drinkCountToday: Int
         get() {
