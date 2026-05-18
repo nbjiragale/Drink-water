@@ -128,8 +128,15 @@ object NotificationService {
             builder.setFullScreenIntent(fsiPendingIntent, true)
         }
 
+        val notification = builder.build()
+        // FLAG_INSISTENT makes the notification's sound (channel-level on O+, builder-level pre-O)
+        // loop until the user interacts with the notification. Opt-in via the reminder sound card.
+        if (PreferencesManager(context).reminderSoundLoop) {
+            notification.flags = notification.flags or android.app.Notification.FLAG_INSISTENT
+        }
+
         try {
-            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
             Log.d(TAG, "Reminder notification displayed.")
         } catch (e: SecurityException) {
             Log.e(TAG, "POST_NOTIFICATIONS permission not granted.", e)

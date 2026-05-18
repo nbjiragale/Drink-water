@@ -75,6 +75,8 @@
     <string name="reminder_sound_change">Change</string>
     <string name="reminder_sound_default">Default notification sound</string>
     <string name="reminder_sound_silent">Silent</string>
+    <string name="reminder_sound_loop_label">Play continuously</string>
+    <string name="reminder_sound_loop_help">Repeat the sound until you tap or dismiss the notification.</string>
 
     <!-- Full-screen reminder activity -->
     <string name="full_screen_title">Time to Drink Water!</string>

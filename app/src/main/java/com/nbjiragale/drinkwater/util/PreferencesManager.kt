@@ -23,6 +23,7 @@ class PreferencesManager(context: Context) {
         private const val KEY_ACTIVE_START_MIN = "active_start_minute"
         private const val KEY_ACTIVE_END_MIN = "active_end_minute"
         private const val KEY_REMINDER_SOUND_URI = "reminder_sound_uri"
+        private const val KEY_REMINDER_SOUND_LOOP = "reminder_sound_loop"
         private const val KEY_NOTIFICATION_CHANNEL_VERSION = "notification_channel_version"
         // Sentinel value for "Silent" — distinguishes from "unset" (null), which means default sound.
         const val SOUND_URI_SILENT = ""
@@ -86,6 +87,15 @@ class PreferencesManager(context: Context) {
     var notificationChannelVersion: Int
         get() = prefs.getInt(KEY_NOTIFICATION_CHANNEL_VERSION, 1)
         set(value) = prefs.edit().putInt(KEY_NOTIFICATION_CHANNEL_VERSION, value).apply()
+
+    /**
+     * When `true`, the reminder notification sets `Notification.FLAG_INSISTENT` so the channel
+     * sound loops until the user interacts with the notification. Defaults to `false` (sound plays
+     * once). Honoured both pre-O (builder-level sound) and O+ (channel-level sound).
+     */
+    var reminderSoundLoop: Boolean
+        get() = prefs.getBoolean(KEY_REMINDER_SOUND_LOOP, false)
+        set(value) = prefs.edit().putBoolean(KEY_REMINDER_SOUND_LOOP, value).apply()
 
     /**
      * Wall-clock millis until which reminder notifications are suppressed.

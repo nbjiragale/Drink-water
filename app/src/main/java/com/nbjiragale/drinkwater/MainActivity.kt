@@ -218,6 +218,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupReminderSoundCard() {
         refreshReminderSoundLabel()
         binding.btnPickSound.setOnClickListener { launchRingtonePicker() }
+        binding.switchReminderSoundLoop.setOnCheckedChangeListener(null)
+        binding.switchReminderSoundLoop.isChecked = prefs.reminderSoundLoop
+        binding.switchReminderSoundLoop.setOnCheckedChangeListener { _, isChecked ->
+            prefs.reminderSoundLoop = isChecked
+        }
     }
 
     private fun launchRingtonePicker() {
