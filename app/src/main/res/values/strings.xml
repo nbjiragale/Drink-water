@@ -58,6 +58,13 @@
     <!-- Today's progress card -->
     <string name="log_drink">+ I Drank Water</string>
 
+    <!-- Reminder sound card -->
+    <string name="reminder_sound">REMINDER SOUND</string>
+    <string name="reminder_sound_picker_title">Choose reminder sound</string>
+    <string name="reminder_sound_change">Change</string>
+    <string name="reminder_sound_default">Default notification sound</string>
+    <string name="reminder_sound_silent">Silent</string>
+
     <!-- Full-screen reminder activity -->
     <string name="full_screen_title">Time to Drink Water!</string>
     <string name="full_screen_body">Your body needs hydration to stay focused and energized.\n\nTake a moment to drink a glass of water.</string>

@@ -22,6 +22,10 @@ class PreferencesManager(context: Context) {
         private const val KEY_DAILY_GOAL = "daily_goal"
         private const val KEY_ACTIVE_START_MIN = "active_start_minute"
         private const val KEY_ACTIVE_END_MIN = "active_end_minute"
+        private const val KEY_REMINDER_SOUND_URI = "reminder_sound_uri"
+        private const val KEY_NOTIFICATION_CHANNEL_VERSION = "notification_channel_version"
+        // Sentinel value for "Silent" — distinguishes from "unset" (null), which means default sound.
+        const val SOUND_URI_SILENT = ""
 
         val INTERVAL_30_MIN = 30 * 60 * 1000L
         val INTERVAL_1_HOUR = 60 * 60 * 1000L
@@ -59,6 +63,25 @@ class PreferencesManager(context: Context) {
     var activeEndMinute: Int
         get() = prefs.getInt(KEY_ACTIVE_END_MIN, DEFAULT_ACTIVE_END_MIN)
         set(value) = prefs.edit().putInt(KEY_ACTIVE_END_MIN, value).apply()
+
+    /**
+     * Reminder sound URI as a string.
+     *  - `null`              → not set; the channel uses the system default notification sound.
+     *  - [SOUND_URI_SILENT]  → user explicitly picked "Silent" in the ringtone picker.
+     *  - any other value     → fully-qualified content URI to a system ringtone/notification tone.
+     */
+    var reminderSoundUri: String?
+        get() = if (prefs.contains(KEY_REMINDER_SOUND_URI)) prefs.getString(KEY_REMINDER_SOUND_URI, null) else null
+        set(value) = prefs.edit().putString(KEY_REMINDER_SOUND_URI, value).apply()
+
+    /**
+     * Monotonically-increasing version bumped each time [reminderSoundUri] changes. The notification
+     * channel ID is derived from this value because Android does not allow updating a channel's sound
+     * after creation — we recreate a fresh channel whenever the user picks a new tone.
+     */
+    var notificationChannelVersion: Int
+        get() = prefs.getInt(KEY_NOTIFICATION_CHANNEL_VERSION, 1)
+        set(value) = prefs.edit().putInt(KEY_NOTIFICATION_CHANNEL_VERSION, value).apply()
 
     var drinkCountToday: Int
         get() {

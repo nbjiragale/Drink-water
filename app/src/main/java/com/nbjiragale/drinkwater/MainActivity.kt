@@ -3,6 +3,7 @@ package com.nbjiragale.drinkwater
 import android.Manifest
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.nbjiragale.drinkwater.alarm.NotificationService
@@ -42,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { updateUI() }
 
+    private val ringtonePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult -> onRingtonePicked(result) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -62,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         setupIntervalChips()
         setupReminderToggle()
         setupActiveHours()
+        setupReminderSoundCard()
         setupProgressCard()
         setupFixPermissionsButton()
         setupBatteryOptButton()
@@ -203,6 +210,67 @@ class MainActivity : AppCompatActivity() {
                 }
                 settingsLauncher.launch(intent)
             }
+        }
+    }
+
+    private fun setupReminderSoundCard() {
+        refreshReminderSoundLabel()
+        binding.btnPickSound.setOnClickListener { launchRingtonePicker() }
+    }
+
+    private fun launchRingtonePicker() {
+        val currentUri: Uri? = when (val stored = prefs.reminderSoundUri) {
+            null -> RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            PreferencesManager.SOUND_URI_SILENT -> null
+            else -> Uri.parse(stored)
+        }
+        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+            putExtra(
+                RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            )
+            putExtra(
+                RingtoneManager.EXTRA_RINGTONE_TITLE,
+                getString(R.string.reminder_sound_picker_title)
+            )
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentUri)
+        }
+        ringtonePickerLauncher.launch(intent)
+    }
+
+    private fun onRingtonePicked(result: ActivityResult) {
+        if (result.resultCode != RESULT_OK) return
+        val picked: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            result.data?.getParcelableExtra(
+                RingtoneManager.EXTRA_RINGTONE_PICKED_URI,
+                Uri::class.java
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+        }
+        val storedValue: String? = when {
+            picked == null -> PreferencesManager.SOUND_URI_SILENT
+            picked == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) -> null
+            else -> picked.toString()
+        }
+        NotificationService.applyReminderSoundChange(this, storedValue)
+        refreshReminderSoundLabel()
+    }
+
+    private fun refreshReminderSoundLabel() {
+        binding.tvReminderSound.text = describeReminderSound(prefs.reminderSoundUri)
+    }
+
+    private fun describeReminderSound(stored: String?): String = when (stored) {
+        null -> getString(R.string.reminder_sound_default)
+        PreferencesManager.SOUND_URI_SILENT -> getString(R.string.reminder_sound_silent)
+        else -> {
+            val title = RingtoneManager.getRingtone(this, Uri.parse(stored))?.getTitle(this)
+            title?.takeIf { it.isNotBlank() } ?: getString(R.string.reminder_sound_default)
         }
     }
 
