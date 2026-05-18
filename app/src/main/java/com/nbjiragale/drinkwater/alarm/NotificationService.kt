@@ -19,6 +19,20 @@ object NotificationService {
     const val CHANNEL_ID = "water_reminders_channel"
     const val NOTIFICATION_ID = 9002
 
+    /** Broadcast action: user tapped "I drank" on the reminder notification. */
+    const val ACTION_DRINK_LOGGED = "com.nbjiragale.drinkwater.action.DRINK_LOGGED"
+
+    /** Broadcast action: user tapped "Snooze 10 min" on the reminder notification. */
+    const val ACTION_SNOOZE = "com.nbjiragale.drinkwater.action.SNOOZE"
+
+    /** Snooze postpones the next reminder by this many ms past `now`. */
+    const val SNOOZE_DURATION_MS = 10 * 60 * 1000L
+
+    private const val REQUEST_CODE_CONTENT = 0
+    private const val REQUEST_CODE_FSI = 1
+    private const val REQUEST_CODE_DRINK_ACTION = 100
+    private const val REQUEST_CODE_SNOOZE_ACTION = 101
+
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -48,12 +62,27 @@ object NotificationService {
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
-        val pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, piFlags)
+        val pendingIntent =
+            PendingIntent.getActivity(context, REQUEST_CODE_CONTENT, launchIntent, piFlags)
 
         val fsiIntent = Intent(context, DrinkReminderFullScreenActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION
         }
-        val fsiPendingIntent = PendingIntent.getActivity(context, 1, fsiIntent, piFlags)
+        val fsiPendingIntent =
+            PendingIntent.getActivity(context, REQUEST_CODE_FSI, fsiIntent, piFlags)
+
+        val drinkPendingIntent = PendingIntent.getBroadcast(
+            context,
+            REQUEST_CODE_DRINK_ACTION,
+            Intent(context, DrinkActionReceiver::class.java).setAction(ACTION_DRINK_LOGGED),
+            piFlags
+        )
+        val snoozePendingIntent = PendingIntent.getBroadcast(
+            context,
+            REQUEST_CODE_SNOOZE_ACTION,
+            Intent(context, DrinkActionReceiver::class.java).setAction(ACTION_SNOOZE),
+            piFlags
+        )
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_water_drop)
@@ -64,6 +93,16 @@ object NotificationService {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .addAction(
+                R.drawable.ic_water_drop,
+                context.getString(R.string.notification_action_drank),
+                drinkPendingIntent
+            )
+            .addAction(
+                R.drawable.ic_water_drop,
+                context.getString(R.string.notification_action_snooze),
+                snoozePendingIntent
+            )
 
         if (canUseFullScreenIntent(context)) {
             builder.setFullScreenIntent(fsiPendingIntent, true)

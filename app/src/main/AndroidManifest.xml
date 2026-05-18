@@ -51,6 +51,11 @@
             android:name=".alarm.AlarmReceiver"
             android:exported="false" />
 
+        <!-- Fired only by our own notification action buttons (PendingIntent targets this class). -->
+        <receiver
+            android:name=".alarm.DrinkActionReceiver"
+            android:exported="false" />
+
         <!--
             BootReceiver must be exported=true so the system can send
             BOOT_COMPLETED and other system-wide broadcasts.

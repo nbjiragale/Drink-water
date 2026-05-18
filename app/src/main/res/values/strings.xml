@@ -25,6 +25,10 @@
     <string name="interval_2h">2 hours</string>
     <string name="interval_3h">3 hours</string>
 
+    <!-- Notification action buttons -->
+    <string name="notification_action_drank">I drank</string>
+    <string name="notification_action_snooze">Snooze 10 min</string>
+
     <!-- Pause reminders -->
     <string name="pause_reminders">Pause reminders</string>
     <string name="resume_reminders">Resume</string>
