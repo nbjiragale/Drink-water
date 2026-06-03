@@ -32,6 +32,13 @@ class AlarmReceiver : BroadcastReceiver() {
             return
         }
 
+        // Same safety net for the customizable daily quiet-hours window.
+        if (prefs.isInDailyPauseNow()) {
+            Log.d(TAG, "Within daily pause window; skipping notification and rescheduling.")
+            WaterReminderAlarmScheduler(context).scheduleNextAlarm()
+            return
+        }
+
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG)
         // Bounded acquire prevents a leaked lock if the finally block somehow fails

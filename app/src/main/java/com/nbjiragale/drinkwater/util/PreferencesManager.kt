@@ -23,6 +23,9 @@ class PreferencesManager(context: Context) {
         private const val KEY_ACTIVE_START_MIN = "active_start_minute"
         private const val KEY_ACTIVE_END_MIN = "active_end_minute"
         private const val KEY_PAUSED_UNTIL_MS = "paused_until_ms"
+        private const val KEY_DAILY_PAUSE_ENABLED = "daily_pause_enabled"
+        private const val KEY_DAILY_PAUSE_START_MIN = "daily_pause_start_minute"
+        private const val KEY_DAILY_PAUSE_END_MIN = "daily_pause_end_minute"
 
         val INTERVAL_30_MIN = 30 * 60 * 1000L
         val INTERVAL_1_HOUR = 60 * 60 * 1000L
@@ -31,6 +34,8 @@ class PreferencesManager(context: Context) {
         const val DEFAULT_DAILY_GOAL = 8
         const val DEFAULT_ACTIVE_START_MIN = 7 * 60   // 07:00
         const val DEFAULT_ACTIVE_END_MIN = 22 * 60    // 22:00
+        const val DEFAULT_DAILY_PAUSE_START_MIN = 12 * 60   // 12:00
+        const val DEFAULT_DAILY_PAUSE_END_MIN = 13 * 60     // 13:00
 
         /** Sentinel for "paused until the user manually resumes" — no scheduled wake-up time. */
         const val PAUSED_INDEFINITELY = Long.MAX_VALUE
@@ -76,6 +81,28 @@ class PreferencesManager(context: Context) {
 
     /** True when [pausedUntilMs] is still in the future (or set to [PAUSED_INDEFINITELY]). */
     fun isPausedNow(nowMs: Long = System.currentTimeMillis()): Boolean = pausedUntilMs > nowMs
+
+    /**
+     * Customizable daily pause ("quiet hours"): when enabled, reminders are muted every day
+     * between [dailyPauseStartMinute] and [dailyPauseEndMinute]. The window may wrap past
+     * midnight (start > end), e.g. 22:00 → 07:00.
+     */
+    var isDailyPauseEnabled: Boolean
+        get() = prefs.getBoolean(KEY_DAILY_PAUSE_ENABLED, false)
+        set(value) = prefs.edit().putBoolean(KEY_DAILY_PAUSE_ENABLED, value).apply()
+
+    var dailyPauseStartMinute: Int
+        get() = prefs.getInt(KEY_DAILY_PAUSE_START_MIN, DEFAULT_DAILY_PAUSE_START_MIN)
+        set(value) = prefs.edit().putInt(KEY_DAILY_PAUSE_START_MIN, value).apply()
+
+    var dailyPauseEndMinute: Int
+        get() = prefs.getInt(KEY_DAILY_PAUSE_END_MIN, DEFAULT_DAILY_PAUSE_END_MIN)
+        set(value) = prefs.edit().putInt(KEY_DAILY_PAUSE_END_MIN, value).apply()
+
+    /** True when the daily pause window is active and [nowMs] falls inside it. */
+    fun isInDailyPauseNow(nowMs: Long = System.currentTimeMillis()): Boolean =
+        isDailyPauseEnabled &&
+            DailyQuietHours.contains(nowMs, dailyPauseStartMinute, dailyPauseEndMinute)
 
     var drinkCountToday: Int
         get() {
