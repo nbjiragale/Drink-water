@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         setupIntervalChips()
         setupReminderToggle()
         setupActiveHours()
+        setupDailyPause()
         setupPauseControls()
         setupProgressCard()
         setupFixPermissionsButton()
@@ -177,6 +178,54 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
+    private fun setupDailyPause() {
+        binding.switchDailyPause.isChecked = prefs.isDailyPauseEnabled
+        refreshDailyPauseUI()
+
+        binding.switchDailyPause.setOnCheckedChangeListener { _, isEnabled ->
+            prefs.isDailyPauseEnabled = isEnabled
+            refreshDailyPauseUI()
+            onDailyPauseChanged()
+        }
+        binding.btnDailyPauseStart.setOnClickListener {
+            showTimePicker(prefs.dailyPauseStartMinute) { picked ->
+                if (picked == prefs.dailyPauseEndMinute) {
+                    Toast.makeText(this, R.string.daily_pause_invalid, Toast.LENGTH_SHORT).show()
+                    return@showTimePicker
+                }
+                prefs.dailyPauseStartMinute = picked
+                refreshDailyPauseUI()
+                onDailyPauseChanged()
+            }
+        }
+        binding.btnDailyPauseEnd.setOnClickListener {
+            showTimePicker(prefs.dailyPauseEndMinute) { picked ->
+                if (picked == prefs.dailyPauseStartMinute) {
+                    Toast.makeText(this, R.string.daily_pause_invalid, Toast.LENGTH_SHORT).show()
+                    return@showTimePicker
+                }
+                prefs.dailyPauseEndMinute = picked
+                refreshDailyPauseUI()
+                onDailyPauseChanged()
+            }
+        }
+    }
+
+    private fun onDailyPauseChanged() {
+        if (prefs.isReminderEnabled) {
+            scheduler.cancelScheduledAlarm()
+            scheduler.scheduleNextAlarm()
+        }
+        updateCountdownText()
+    }
+
+    private fun refreshDailyPauseUI() {
+        binding.dailyPauseTimes.visibility =
+            if (prefs.isDailyPauseEnabled) View.VISIBLE else View.GONE
+        binding.tvDailyPauseStart.text = formatMinuteOfDay(prefs.dailyPauseStartMinute)
+        binding.tvDailyPauseEnd.text = formatMinuteOfDay(prefs.dailyPauseEndMinute)
+    }
+
     private fun setupFixPermissionsButton() {
         binding.btnFixPermissions.setOnClickListener {
             when {
@@ -218,6 +267,7 @@ class MainActivity : AppCompatActivity() {
         val options = arrayOf(
             getString(R.string.pause_15min),
             getString(R.string.pause_1hour),
+            getString(R.string.pause_custom),
             getString(R.string.pause_until_resumed)
         )
         MaterialAlertDialogBuilder(this)
@@ -226,10 +276,32 @@ class MainActivity : AppCompatActivity() {
                 when (which) {
                     0 -> pauseFor(TimeUnit.MINUTES.toMillis(15))
                     1 -> pauseFor(TimeUnit.HOURS.toMillis(1))
-                    2 -> pauseFor(PreferencesManager.PAUSED_INDEFINITELY)
+                    2 -> showCustomPauseDurationPicker()
+                    3 -> pauseFor(PreferencesManager.PAUSED_INDEFINITELY)
                 }
             }
             .show()
+    }
+
+    /** Lets the user pause for an arbitrary duration via an HH:MM picker. */
+    private fun showCustomPauseDurationPicker() {
+        TimePickerDialog(
+            this,
+            { _, hours, minutes ->
+                val durationMs = TimeUnit.HOURS.toMillis(hours.toLong()) +
+                    TimeUnit.MINUTES.toMillis(minutes.toLong())
+                if (durationMs <= 0L) {
+                    Toast.makeText(this, R.string.pause_custom_invalid, Toast.LENGTH_SHORT).show()
+                } else {
+                    pauseFor(durationMs)
+                }
+            },
+            1, // default 1h 00m
+            0,
+            true // 24-hour spinner reads naturally as a duration
+        ).apply {
+            setTitle(R.string.pause_custom_title)
+        }.show()
     }
 
     private fun pauseFor(durationMs: Long) {
@@ -389,6 +461,17 @@ class MainActivity : AppCompatActivity() {
                         .format(Date(pausedUntil))
                     getString(R.string.paused_until_format, resumeTime)
                 }
+            return
+        }
+        if (prefs.isInDailyPauseNow(now)) {
+            val resumeMs = com.nbjiragale.drinkwater.util.DailyQuietHours.clamp(
+                now, prefs.dailyPauseStartMinute, prefs.dailyPauseEndMinute
+            )
+            binding.tvCountdown.text = getString(R.string.paused)
+            binding.tvCountdownLabel.visibility = View.INVISIBLE
+            binding.tvPausedSubtitle.visibility = View.VISIBLE
+            val resumeTime = SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(resumeMs))
+            binding.tvPausedSubtitle.text = getString(R.string.daily_pause_active, resumeTime)
             return
         }
         binding.tvPausedSubtitle.visibility = View.GONE

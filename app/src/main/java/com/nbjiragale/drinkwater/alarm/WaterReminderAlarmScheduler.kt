@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import com.nbjiragale.drinkwater.util.ActiveWindow
+import com.nbjiragale.drinkwater.util.DailyQuietHours
 import com.nbjiragale.drinkwater.util.PreferencesManager
 import com.nbjiragale.drinkwater.util.SmartIntervalCalculator
 
@@ -32,10 +33,22 @@ class WaterReminderAlarmScheduler(private val context: Context) {
 
         val intervalMs = SmartIntervalCalculator(prefs).nextIntervalMs()
         val proposed = now + intervalMs
-        // Push the trigger past an active pause window so the alarm never fires inside it.
-        val withPause = if (pausedUntil > now) maxOf(proposed, pausedUntil) else proposed
-        val clamped = ActiveWindow.clamp(withPause, prefs.activeStartMinute, prefs.activeEndMinute)
-        scheduleAlarmAt(clamped)
+        // Push the trigger past an active one-off pause window so the alarm never fires inside it.
+        var trigger = if (pausedUntil > now) maxOf(proposed, pausedUntil) else proposed
+
+        // Reconcile against both the active-hours window and the daily quiet-hours window.
+        // Each clamp can push the trigger into the other's exclusion zone, so iterate until
+        // the time is clear of both (converges quickly; capped to stay bounded).
+        val dailyPauseEnabled = prefs.isDailyPauseEnabled
+        repeat(4) {
+            trigger = ActiveWindow.clamp(trigger, prefs.activeStartMinute, prefs.activeEndMinute)
+            if (dailyPauseEnabled) {
+                trigger = DailyQuietHours.clamp(
+                    trigger, prefs.dailyPauseStartMinute, prefs.dailyPauseEndMinute
+                )
+            }
+        }
+        scheduleAlarmAt(trigger)
     }
 
     fun scheduleAlarmAt(triggerTimeMs: Long) {

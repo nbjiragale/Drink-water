@@ -31,10 +31,21 @@
     <string name="pause_picker_title">Pause reminders for…</string>
     <string name="pause_15min">15 minutes</string>
     <string name="pause_1hour">1 hour</string>
+    <string name="pause_custom">Custom duration…</string>
     <string name="pause_until_resumed">Until I resume</string>
+    <string name="pause_custom_title">Pause for how long?</string>
+    <string name="pause_custom_invalid">Choose a duration longer than zero</string>
     <string name="paused">PAUSED</string>
     <string name="paused_until_format">Resumes at %1$s</string>
     <string name="paused_indefinitely">Tap Resume to continue</string>
+
+    <!-- Daily pause (recurring quiet hours) -->
+    <string name="daily_pause">DAILY PAUSE</string>
+    <string name="daily_pause_subtitle">Mute reminders every day during these hours</string>
+    <string name="daily_pause_from">FROM</string>
+    <string name="daily_pause_to">TO</string>
+    <string name="daily_pause_invalid">Start and end times can\'t be the same</string>
+    <string name="daily_pause_active">Quiet hours — resumes at %1$s</string>
 
     <!-- Active hours card -->
     <string name="active_hours">ACTIVE HOURS</string>
