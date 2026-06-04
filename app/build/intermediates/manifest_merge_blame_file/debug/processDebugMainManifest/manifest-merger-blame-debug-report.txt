@@ -64,151 +64,150 @@
 39-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:23:9-54
 40        android:supportsRtl="true"
 40-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:24:9-35
-41        android:testOnly="true"
-42        android:theme="@style/Theme.DrinkWater" >
-42-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:25:9-48
-43        <activity
-43-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:27:9-34:20
-44            android:name="com.nbjiragale.drinkwater.MainActivity"
-44-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:28:13-41
-45            android:exported="true" >
-45-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:29:13-36
-46            <intent-filter>
-46-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:30:13-33:29
-47                <action android:name="android.intent.action.MAIN" />
-47-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:31:17-69
-47-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:31:25-66
-48
-49                <category android:name="android.intent.category.LAUNCHER" />
-49-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:32:17-77
-49-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:32:27-74
-50            </intent-filter>
-51        </activity>
-52        <activity
-52-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:36:9-38:40
-53            android:name="com.nbjiragale.drinkwater.OnboardingActivity"
-53-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:37:13-47
-54            android:exported="false" />
-54-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:38:13-37
-55        <activity
-55-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:40:9-47:40
-56            android:name="com.nbjiragale.drinkwater.DrinkReminderFullScreenActivity"
-56-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:41:13-60
-57            android:excludeFromRecents="true"
-57-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:46:13-46
-58            android:exported="false"
-58-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:42:13-37
-59            android:noHistory="true"
-59-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:47:13-37
-60            android:showWhenLocked="true"
-60-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:43:13-42
-61            android:theme="@style/Theme.DrinkWater.FullScreen"
-61-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:45:13-63
-62            android:turnScreenOn="true" />
-62-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:44:13-40
-63
-64        <!-- AlarmManager broadcasts this to our own app; exported=false is correct -->
-65        <receiver
-65-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:50:9-52:40
-66            android:name="com.nbjiragale.drinkwater.alarm.AlarmReceiver"
-66-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:51:13-48
-67            android:exported="false" />
-67-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:52:13-37
-68
-69        <!--
-70            BootReceiver must be exported=true so the system can send
-71            BOOT_COMPLETED and other system-wide broadcasts.
-72            Priority 999 ensures early execution during boot sequence.
-73        -->
-74        <receiver
-74-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:59:9-68:20
-75            android:name="com.nbjiragale.drinkwater.alarm.BootReceiver"
-75-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:60:13-47
-76            android:exported="true" >
-76-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:61:13-36
-77            <intent-filter android:priority="999" >
-77-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:62:13-67:29
-77-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:62:28-50
-78                <action android:name="android.intent.action.BOOT_COMPLETED" />
-78-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:63:17-79
-78-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:63:25-76
-79                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-79-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:64:17-84
-79-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:64:25-81
-80                <action android:name="android.intent.action.TIME_SET" />
-80-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:65:17-73
-80-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:65:25-70
-81                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-81-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:66:17-81
-81-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:66:25-78
-82            </intent-filter>
-83        </receiver>
-84
-85        <provider
-85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-86            android:name="androidx.startup.InitializationProvider"
-86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
-87            android:authorities="com.nbjiragale.drinkwater.androidx-startup"
-87-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
-88            android:exported="false" >
-88-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
-89            <meta-data
-89-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-90                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-90-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
-91                android:value="androidx.startup" />
-91-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
-92            <meta-data
-92-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-93                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-93-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-94                android:value="androidx.startup" />
-94-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-95            <meta-data
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-96                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
-97                android:value="androidx.startup" />
-97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-98        </provider>
-99
-100        <receiver
-100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-101            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-102            android:directBootAware="false"
-102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-103            android:enabled="true"
-103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-104            android:exported="true"
-104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-105            android:permission="android.permission.DUMP" >
-105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-106            <intent-filter>
-106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-107                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-108            </intent-filter>
-109            <intent-filter>
-109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-110                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-111            </intent-filter>
-112            <intent-filter>
-112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-113                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
-114            </intent-filter>
-115            <intent-filter>
-115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-116                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
-117            </intent-filter>
-118        </receiver>
-119    </application>
-120
-121</manifest>
+41        android:theme="@style/Theme.DrinkWater" >
+41-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:25:9-48
+42        <activity
+42-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:27:9-34:20
+43            android:name="com.nbjiragale.drinkwater.MainActivity"
+43-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:28:13-41
+44            android:exported="true" >
+44-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:29:13-36
+45            <intent-filter>
+45-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:30:13-33:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:31:17-69
+46-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:31:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:32:17-77
+48-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:32:27-74
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:36:9-38:40
+52            android:name="com.nbjiragale.drinkwater.OnboardingActivity"
+52-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:37:13-47
+53            android:exported="false" />
+53-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:38:13-37
+54        <activity
+54-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:40:9-47:40
+55            android:name="com.nbjiragale.drinkwater.DrinkReminderFullScreenActivity"
+55-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:41:13-60
+56            android:excludeFromRecents="true"
+56-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:46:13-46
+57            android:exported="false"
+57-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:42:13-37
+58            android:noHistory="true"
+58-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:47:13-37
+59            android:showWhenLocked="true"
+59-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:43:13-42
+60            android:theme="@style/Theme.DrinkWater.FullScreen"
+60-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:45:13-63
+61            android:turnScreenOn="true" />
+61-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:44:13-40
+62
+63        <!-- AlarmManager broadcasts this to our own app; exported=false is correct -->
+64        <receiver
+64-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:50:9-52:40
+65            android:name="com.nbjiragale.drinkwater.alarm.AlarmReceiver"
+65-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:51:13-48
+66            android:exported="false" />
+66-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:52:13-37
+67
+68        <!--
+69            BootReceiver must be exported=true so the system can send
+70            BOOT_COMPLETED and other system-wide broadcasts.
+71            Priority 999 ensures early execution during boot sequence.
+72        -->
+73        <receiver
+73-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:59:9-68:20
+74            android:name="com.nbjiragale.drinkwater.alarm.BootReceiver"
+74-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:60:13-47
+75            android:exported="true" >
+75-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:61:13-36
+76            <intent-filter android:priority="999" >
+76-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:62:13-67:29
+76-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:62:28-50
+77                <action android:name="android.intent.action.BOOT_COMPLETED" />
+77-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:63:17-79
+77-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:63:25-76
+78                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+78-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:64:17-84
+78-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:64:25-81
+79                <action android:name="android.intent.action.TIME_SET" />
+79-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:65:17-73
+79-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:65:25-70
+80                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+80-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:66:17-81
+80-->C:\Projects\Drink-water\app\src\main\AndroidManifest.xml:66:25-78
+81            </intent-filter>
+82        </receiver>
+83
+84        <provider
+84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+85            android:name="androidx.startup.InitializationProvider"
+85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+86            android:authorities="com.nbjiragale.drinkwater.androidx-startup"
+86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+87            android:exported="false" >
+87-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+88            <meta-data
+88-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+89                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+89-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+90                android:value="androidx.startup" />
+90-->[androidx.emoji2:emoji2:1.3.0] C:\Users\jirag\.gradle\caches\transforms-4\22f84dc0e4d12cc1f2e2dfcc107c2289\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+91            <meta-data
+91-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+92                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+92-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+93                android:value="androidx.startup" />
+93-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\jirag\.gradle\caches\transforms-4\05ef0b832f5161bd878b6b4167eacdd0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+94            <meta-data
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+95                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+96                android:value="androidx.startup" />
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+97        </provider>
+98
+99        <receiver
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+100            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+101            android:directBootAware="false"
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+102            android:enabled="true"
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+103            android:exported="true"
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+104            android:permission="android.permission.DUMP" >
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+106                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+107            </intent-filter>
+108            <intent-filter>
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+109                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+110            </intent-filter>
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+112                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+113            </intent-filter>
+114            <intent-filter>
+114-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+115                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\jirag\.gradle\caches\transforms-4\c643c47b18ab6c9d28889fb5fc01f141\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+116            </intent-filter>
+117        </receiver>
+118    </application>
+119
+120</manifest>
